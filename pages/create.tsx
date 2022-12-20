@@ -16,7 +16,6 @@ export default function Create() {
 
     const [textInput, setTextInput] = useState("");
     const [result, setResult] = useState();
-
     async function onSubmit(e: ChangeEvent<HTMLFormElement>){
       e.preventDefault();
       console.log('inside onsubmit')

@@ -9,13 +9,8 @@ import { useState } from 'react'
 import { ChangeEvent } from 'react'
 
 export default function DallEImages({urls}) {
-  // const returnedImages:string[] = [];
-  // urls.forEach(obj => {
-  //   const image:string = obj.url
-  //   returnedImages.push(image)
-  // })
-  // }
-
+  console.log('inside images: ', urls);
+  if (urls === undefined) return
     return (
         <div>
           <Container component="main" maxWidth= "lg"
@@ -29,20 +24,12 @@ export default function DallEImages({urls}) {
                     outline: '2px solid black',
                     borderRadius: '10px',
                 }}>
-                  <Grid container spacing={2}>
-                    <Grid>
-                      <img />
-                    </Grid>
-                    <Grid>
-                      
-                    </Grid>
-                    <Grid>
-                      
-                    </Grid>
-                    <Grid>
-                      
-                    </Grid>
-                  </Grid>
+                  <Grid spacing={2}>
+              <img src={`${urls[0].url}`} alt='image' width='280' height='280' />
+              <img src={`${urls[1].url}`} alt='image' width='280' height='280' />
+              <img src={`${urls[2].url}`} alt='image' width='280' height='280' />
+              <img src={`${urls[3].url}`} alt='image' width='280' height='280' />
+              </Grid>
           </Container>
           <Container>
             <Button 
