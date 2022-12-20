@@ -5,13 +5,30 @@ import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
-
+import { useState } from 'react'
+import { ChangeEvent } from 'react'
 import Rules from './components/Rules'
 import DallEImages from './components/DallEImages'
 
 
 
 export default function Create() {
+
+    const [textInput, setTextInput] = (useState(""));
+    const [result, setResult] = useState();
+    async function onSubmit(e: ChangeEvent<HTMLFormElement>){
+      e.preventDefault();
+      const response = await fetch('/api/dalle', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ text: textInput })
+      });
+      const data = await response.json();
+      setResult(data.image_url);
+    }
+
     return (
         <div>
           <Container component="main" maxWidth= "lg">
@@ -35,6 +52,8 @@ export default function Create() {
                             fullWidth
                             id="prompt"
                             label="Enter your prompt for Dall-E here - be creative!"
+                            value={textInput}
+                            onChange={(e) => (e.target.value)}
                             name="prompt"
                             /> 
                         </Grid>
