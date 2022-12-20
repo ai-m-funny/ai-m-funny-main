@@ -13,7 +13,7 @@ export default async function getPrompt (req:NextApiRequest, res:NextApiResponse
     n: 4,
     size: "1024x1024",
   });
-  res.status(200).json({ image_url: response.data.data[0].url });
+  res.status(200).json({ image_url: response.data.data });
 }
 
 function generatePrompt(text:string) {

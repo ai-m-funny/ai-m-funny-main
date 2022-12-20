@@ -28,7 +28,9 @@ export default function Create() {
         body: JSON.stringify({ text: textInput })
       });
       const data = await response.json();
+      // console.log(data);
       setResult(data.image_url);
+      console.log(textInput)
     }
 
     return (
@@ -54,8 +56,8 @@ export default function Create() {
                             fullWidth
                             id="prompt"
                             label="Enter your prompt for Dall-E here - be creative!"
-                            value='placement'
-                            onChange={(e) => (e.target.value)}
+                            value={textInput}
+                            onChange={(e) => setTextInput(e.target.value)}
                             name="prompt"
                             /> 
                         </Grid>
@@ -71,7 +73,7 @@ export default function Create() {
                        </Grid> 
                 </Box>
             </Container>
-            <DallEImages />
+            <DallEImages urls={result}/>
         </div>
     )
 }
