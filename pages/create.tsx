@@ -14,10 +14,12 @@ import DallEImages from './components/DallEImages'
 
 export default function Create() {
 
-    const [textInput, setTextInput] = (useState(""));
+    const [textInput, setTextInput] = useState("");
     const [result, setResult] = useState();
+
     async function onSubmit(e: ChangeEvent<HTMLFormElement>){
       e.preventDefault();
+      console.log('inside onsubmit')
       const response = await fetch('/api/dalle', {
         method: 'POST',
         headers: {
@@ -44,7 +46,7 @@ export default function Create() {
                         Create images
                     </Typography>
                     <Rules />
-                <Box component= "form" noValidate sx={{mt: 3}}>
+                <Box component= "form" noValidate sx={{mt: 3}} onSubmit={onSubmit}>
                     <Grid container spacing={2}>
                         <Grid item xs={10} sm={10}>
                             <TextField
@@ -52,7 +54,7 @@ export default function Create() {
                             fullWidth
                             id="prompt"
                             label="Enter your prompt for Dall-E here - be creative!"
-                            value={textInput}
+                            value='placement'
                             onChange={(e) => (e.target.value)}
                             name="prompt"
                             /> 

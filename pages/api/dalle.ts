@@ -7,6 +7,7 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export default async function getPrompt (req:NextApiRequest, res:NextApiResponse) {
+  console.log('inside getPrompt')
   const response = await openai.createImage({
     prompt: generatePrompt(req.body.text),
     n: 4,
