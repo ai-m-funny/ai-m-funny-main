@@ -10,7 +10,7 @@ export default function Rules() {
     return (
         <div>
           <Container component="main" maxWidth= "lg">
-                <Typography component="body" variant="body1">
+                <Typography variant="body1">
                     Rules: each user can only submit 1 prompt per contest. Your prompt will generate 4 images using Dall-E 2. Select which one you would like to enter, and then click the submit button to have your chosen image added to the contest.
                 </Typography>
           </Container>
