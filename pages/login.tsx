@@ -1,3 +1,6 @@
+// 'use client' gives app access to browser storage to find session tokens
+'use client'
+
 import Head from 'next/head'
 import Link from 'next/link'
 import Layout from '../layout/layout'
@@ -5,12 +8,17 @@ import styles from '../styles/Form.module.css';
 import Image from 'next/image'
 import { HiAtSymbol, HiFingerPrint, HiOutlineUser } from "react-icons/hi";
 import { useState } from 'react';
-import { signIn, signOut } from "next-auth/react"
+import { signIn, signOut, useSession } from "next-auth/react"
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
-import  googleIcon  from '../public/google.svg'
+import  googleIcon  from '../public/google.svg';
 
 export default function Login(){
+
+    // get session for NextAuth
+    const { data: session } = useSession();
+    console.log('session: ', session)
+
 
     const [show, setShow] = useState(false)
     const router = useRouter()
@@ -28,13 +36,14 @@ export default function Login(){
             username: values.username,
             callbackUrl: "/"
         })
-
+        console.log('this is session: ', session)
         if(status.ok) router.push(status.url)
         
     }
 
+
     async function handleGoogleSignin(){
-        signIn('google', { callbackUrl : "http://localhost:3000"})
+        signIn('google', { callbackUrl : "http://localhost:3000/create"})
     }
 
     return (

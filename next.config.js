@@ -6,6 +6,9 @@ const nextConfig = {
   //     exclude: ['error'],
   //   },
   // },
+  experimental: {
+    newNextLinkBehavior: false,
+  },
   images: {
     remotePatterns: [
       {
