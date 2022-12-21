@@ -69,7 +69,7 @@ export default function Create() {
                        </Grid> 
                 </Box>
             </Container>
-            <DallEImages urls={result}/>
+            <DallEImages urls={result} />
         </div>
     )
 }
