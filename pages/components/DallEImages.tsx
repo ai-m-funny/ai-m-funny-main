@@ -24,12 +24,10 @@ export default function DallEImages({urls}) {
                     outline: '2px solid black',
                     borderRadius: '10px',
                 }}>
-                  <Grid spacing={2}>
               <img src={`${urls[0].url}`} alt='image' width='280' height='280' />
               <img src={`${urls[1].url}`} alt='image' width='280' height='280' />
               <img src={`${urls[2].url}`} alt='image' width='280' height='280' />
               <img src={`${urls[3].url}`} alt='image' width='280' height='280' />
-              </Grid>
           </Container>
           <Container>
             <Button 
