@@ -17,5 +17,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       console.log('Error in GET request to api/images/username:', error);
       res.status(400).json({ error: 'failed to load data' });
     }
+  } else {
+    console.log('error: request method not available on this route');
+    res.status(400).json({ error: 'request method not available on this route' });
   }
 }
