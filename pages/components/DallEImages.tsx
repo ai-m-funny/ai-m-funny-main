@@ -5,9 +5,12 @@ import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
+import { useState } from 'react'
+import { ChangeEvent } from 'react'
 
-export default function DallEImages() {
-  const returnedImages = []
+export default function DallEImages({urls}) {
+  console.log('inside images: ', urls);
+  if (urls === undefined) return
     return (
         <div>
           <Container component="main" maxWidth= "lg"
@@ -21,6 +24,10 @@ export default function DallEImages() {
                     outline: '2px solid black',
                     borderRadius: '10px',
                 }}>
+              <img src={`${urls[0].url}`} alt='image' width='280' height='280' />
+              <img src={`${urls[1].url}`} alt='image' width='280' height='280' />
+              <img src={`${urls[2].url}`} alt='image' width='280' height='280' />
+              <img src={`${urls[3].url}`} alt='image' width='280' height='280' />
           </Container>
           <Container>
             <Button 

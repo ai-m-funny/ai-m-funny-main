@@ -5,13 +5,33 @@ import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
-
+import { useState } from 'react'
+import { ChangeEvent } from 'react'
 import Rules from './components/Rules'
 import DallEImages from './components/DallEImages'
 
 
 
 export default function Create() {
+
+    const [textInput, setTextInput] = useState("");
+    const [result, setResult] = useState();
+    async function onSubmit(e: ChangeEvent<HTMLFormElement>){
+      e.preventDefault();
+      console.log('inside onsubmit')
+      const response = await fetch('/api/dalle', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ text: textInput })
+      });
+      const data = await response.json();
+      // console.log(data);
+      setResult(data.image_url);
+      console.log(textInput)
+    }
+
     return (
         <div>
           <Container component="main" maxWidth= "lg">
@@ -27,7 +47,7 @@ export default function Create() {
                         Create images
                     </Typography>
                     <Rules />
-                <Box component= "form" noValidate sx={{mt: 3}}>
+                <Box component= "form" noValidate sx={{mt: 3}} onSubmit={onSubmit}>
                     <Grid container spacing={2}>
                         <Grid item xs={10} sm={10}>
                             <TextField
@@ -35,6 +55,8 @@ export default function Create() {
                             fullWidth
                             id="prompt"
                             label="Enter your prompt for Dall-E here - be creative!"
+                            value={textInput}
+                            onChange={(e) => setTextInput(e.target.value)}
                             name="prompt"
                             /> 
                         </Grid>
@@ -50,7 +72,7 @@ export default function Create() {
                        </Grid> 
                 </Box>
             </Container>
-            <DallEImages />
+            <DallEImages urls={result}/>
         </div>
     )
 }
