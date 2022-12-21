@@ -34,7 +34,7 @@ export default function Register(){
             })
     }
     async function handleGoogleSignin(){
-        signIn('google', { callbackUrl : "http://localhost:3000"})
+        signIn('google', { callbackUrl : "http://localhost:3000/create"})
     }
     return (
        
