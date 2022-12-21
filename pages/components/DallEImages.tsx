@@ -6,23 +6,31 @@ import Item from '@mui/material/Grid'
 import Image from 'next/image'
 import { useState } from 'react'
 
-export default function DallEImages({urls}) {
-  
-  async function handleClick(e, url) {
+export default function DallEImages({props}) {
+  console.log(props.urls)
+  console.log(props.subject)
+  const urls = props.urls;
+  const contestName = props.subject;
+  async function handleClick(e: React.MouseEvent<HTMLImageElement, MouseEvent>, url: string, contestName: string) {
     e.preventDefault();
-    const response = await fetch('/api/contest', {
+    console.log(contestName)
+    const response = await fetch('/api/images', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ image_url: url })
+      body: JSON.stringify({ 
+        url: url, 
+        votes: 0,
+        username: 'test', 
+        contestname: contestName
+      })
     });
     const data = await response.json();
-    console.log(data);
   }
   if (urls === undefined) return;
     return (
-        <div>
+        <div>        
           <Container component="main" maxWidth= "lg"
             sx={{
                     marginTop: 8,
@@ -34,36 +42,30 @@ export default function DallEImages({urls}) {
                     borderRadius: '10px',
                     alignContent: 'center',
                 }}>
+                  Click on the image you would like to submit to the contest!
                   <Grid container spacing={4} columns={12}>
                     <Grid item xs={12} sm={6}>
                       <Item>
-                        <Image src={`${urls[0].url}`} alt='image' width='400' height='400' onClick={(e) => handleClick(e, urls[0].url)} />
+                        <Image src={`${urls[0].url}`} alt='image' width='400' height='400' onClick={(e) => handleClick(e, urls[0].url, contestName)} />
                       </Item>
                     </Grid>
                     <Grid item xs={12} sm={6}>
                       <Item>
-                        <Image src={`${urls[1].url}`} alt='image' width='400' height='400' onClick={(e) => handleClick(e, urls[1].url)} />
+                        <Image src={`${urls[1].url}`} alt='image' width='400' height='400' onClick={(e) => handleClick(e, urls[1].url, contestName)} />
                       </Item>
                     </Grid>
                     <Grid item xs={12} sm={6}>
                       <Item>
-                        <Image src={`${urls[2].url}`} alt='image' width='400' height='400' onClick={(e) => handleClick(e, urls[2].url)} />
+                        <Image src={`${urls[2].url}`} alt='image' width='400' height='400' onClick={(e) => handleClick(e, urls[2].url, contestName)} />
                       </Item>
                     </Grid>
                     <Grid item xs={12} sm={6}>
                       <Item>
-                        <Image src={`${urls[3].url}`} alt='image' width='400' height='400' onClick={(e) => handleClick(e, urls[3].url)} />
+                        <Image src={`${urls[3].url}`} alt='image' width='400' height='400' onClick={(e) => handleClick(e, urls[3].url, contestName)} />
                       </Item>
                     </Grid>
                   </Grid>
           </Container>
-          <Button 
-              type="submit"
-              variant='contained'
-              sx={{mt: 1, nb: 2}}
-              >
-              Submit
-          </Button>
         </div>
     )
 }

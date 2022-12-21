@@ -29,7 +29,23 @@ export default function Create() {
       const data = await response.json();
       setResult(data.image_url);
     }
-
+    const [subject, setSubject] = useState();
+    async function getSubject(): Promise<void>{
+      const response = await fetch('/api/contest', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const data = await response.json();
+      setSubject(data[0].contestname);
+      console.log(subject)
+    }
+    getSubject();
+    const props = {
+      subject: subject,
+      urls: result
+    }
     return (
         <div>
           <Container component="main" maxWidth= "lg">
@@ -45,7 +61,7 @@ export default function Create() {
                         Create images, enter the contest!
                     </Typography>
                     <Rules />
-                    <Subject />
+                    <Subject subject={subject} />
                 <Box component= "form" noValidate sx={{mt: 3}} onSubmit={onSubmit}>
                     <Grid container spacing={2}>
                         <Grid item xs={10} sm={10}>
@@ -69,7 +85,7 @@ export default function Create() {
                        </Grid> 
                 </Box>
             </Container>
-            <DallEImages urls={result} />
+            <DallEImages props={props}/>
         </div>
     )
 }
