@@ -12,11 +12,13 @@ import DallEImages from './components/DallEImages'
 import Subject from './components/Subject';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { CircularProgress, LinearProgress } from '@mui/material'
+import { useSession } from "next-auth/react"
 
 
 
 export default function Create() {
-
+    const { data: session } = useSession()
+    console.log('session: ', session)
     const [textInput, setTextInput] = useState("");
     const [result, setResult] = useState();
     const [loading, setLoading] = useState(false);
@@ -51,6 +53,11 @@ export default function Create() {
       subject: subject,
       urls: result,
       loading: loading
+    }
+    if (!session) {
+      return (
+        <h1>unauthorized</h1>
+      )
     }
     return (
         <div>
