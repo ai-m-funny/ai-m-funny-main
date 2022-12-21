@@ -33,7 +33,7 @@ export default function DallEImages({props}) {
   if (submitted === true) return (
     <div>
       <p>Your image has been submitted!</p>
-      <Link href='/'>CLick here to back to the contest feed</Link>
+      <Link href='/feed'>Click here to back to the contest feed</Link>
     </div>
   )
     return (

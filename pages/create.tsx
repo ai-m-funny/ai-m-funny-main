@@ -89,7 +89,7 @@ export default function Create() {
                             loading={loading}
                             loadingPosition="center"
                             loadingIndicator={<CircularProgress
-                                                color='secondary'
+                                                color='primary'
                                                 size='20px'
                                                 />}
                             sx={
