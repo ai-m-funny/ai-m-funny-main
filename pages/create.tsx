@@ -11,7 +11,7 @@ import Rules from './components/Rules'
 import DallEImages from './components/DallEImages'
 import Subject from './components/Subject';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { LinearProgress } from '@mui/material'
+import { CircularProgress, LinearProgress } from '@mui/material'
 
 
 
@@ -88,6 +88,10 @@ export default function Create() {
                             variant="contained"
                             loading={loading}
                             loadingPosition="center"
+                            loadingIndicator={<CircularProgress
+                                                color='secondary'
+                                                size='20px'
+                                                />}
                             sx={
                               {
                                 backgroundColor: '#64B5F6 !important',

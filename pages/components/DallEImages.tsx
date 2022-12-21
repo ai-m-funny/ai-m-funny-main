@@ -5,6 +5,7 @@ import Item from '@mui/material/Grid'
 import Image from 'next/image'
 import styles from 'styles/Form.module.css';
 import { useState } from 'react'
+import Link from 'next/link'
 
 export default function DallEImages({props}) {
   const [submitted, setSubmitted] = useState();
@@ -32,7 +33,7 @@ export default function DallEImages({props}) {
   if (submitted === true) return (
     <div>
       <p>Your image has been submitted!</p>
-      <a href="/">CLick here to back to the contest feed</a>
+      <Link href='/'>CLick here to back to the contest feed</Link>
     </div>
   )
     return (
