@@ -6,15 +6,15 @@ type Data = unknown;
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   const connection = await createConnection(process.env.DATABASE_URL ?? '');
 
-  // get images by contest
+  // increment images votes by 1
   if (req.method === 'GET') {
-    const { contestname } = req.query;
+    const { idimages } = req.query;
     try {
-      let [rows, fields] = await connection.execute('SELECT * FROM images WHERE contestname = ? ORDER BY votes DESC;', [contestname]);
+      let [rows, fields] = await connection.execute('UPDATE images SET votes = votes + 1 WHERE idimages = ?', [idimages]);
       console.log(rows);
       res.status(200).json(rows);
     } catch (error) {
-      console.log('Error in GET request to api/images/contestname:', error);
+      console.log('Error in GET request to api/images/votes:', error);
       res.status(400).json({ error: 'failed to load data' });
     }
   } else {
