@@ -1,0 +1,17 @@
+.feedContainer {
+  border-radius: 50px;
+  background: #322f2f;
+  box-shadow:  20px 20px 60px #2b2828,
+               -20px -20px 60px #3a3636;
+
+}
+.feed-item__image {
+    margin-right: 20px;
+  }
+
+
+
+feed-item__description {
+    flex: 1; 
+    padding: 10px;
+  }
