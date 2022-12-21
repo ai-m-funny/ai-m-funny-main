@@ -10,11 +10,13 @@ import { ChangeEvent } from 'react'
 import Rules from './components/Rules'
 import DallEImages from './components/DallEImages'
 import Subject from './components/Subject';
+import { useSession } from "next-auth/react"
 
 
 
 export default function Create() {
-
+    const { data: session } = useSession()
+    console.log('session: ', session)
     const [textInput, setTextInput] = useState("");
     const [result, setResult] = useState();
     async function onSubmit(e: ChangeEvent<HTMLFormElement>){
@@ -45,6 +47,11 @@ export default function Create() {
     const props = {
       subject: subject,
       urls: result
+    }
+    if (!session) {
+      return (
+        <h1>unauthorized</h1>
+      )
     }
     return (
         <div>

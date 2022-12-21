@@ -17,6 +17,7 @@ export default function Login(){
 
     // get session for NextAuth
     const { data: session } = useSession();
+    console.log('session: ', session)
 
 
     const [show, setShow] = useState(false)
@@ -35,14 +36,14 @@ export default function Login(){
             username: values.username,
             callbackUrl: "/"
         })
-
+        console.log('this is session: ', session)
         if(status.ok) router.push(status.url)
         
     }
 
 
     async function handleGoogleSignin(){
-        signIn('google', { callbackUrl : "http://localhost:3000"})
+        signIn('google', { callbackUrl : "http://localhost:3000/create"})
     }
 
     return (
