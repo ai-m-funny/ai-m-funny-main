@@ -1,5 +1,5 @@
 import * as React from 'react'
-import styles from '../styles/Form.module.css';
+
 import TextField from '@mui/material/TextField'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
@@ -10,6 +10,8 @@ import { ChangeEvent } from 'react'
 import Rules from './components/Rules'
 import DallEImages from './components/DallEImages'
 import Subject from './components/Subject';
+import LoadingButton from '@mui/lab/LoadingButton';
+import { LinearProgress } from '@mui/material'
 
 
 
@@ -17,7 +19,9 @@ export default function Create() {
 
     const [textInput, setTextInput] = useState("");
     const [result, setResult] = useState();
+    const [loading, setLoading] = useState(false);
     async function onSubmit(e: ChangeEvent<HTMLFormElement>){
+      setLoading(true);
       e.preventDefault();
       const response = await fetch('/api/dalle', {
         method: 'POST',
@@ -28,6 +32,7 @@ export default function Create() {
       });
       const data = await response.json();
       setResult(data.image_url);
+      setLoading(false);
     }
     const [subject, setSubject] = useState();
     async function getSubject(): Promise<void>{
@@ -44,7 +49,8 @@ export default function Create() {
     getSubject();
     const props = {
       subject: subject,
-      urls: result
+      urls: result,
+      loading: loading
     }
     return (
         <div>
@@ -76,11 +82,23 @@ export default function Create() {
                             /> 
                         </Grid>
                         <Grid item xs={2} sm={2}>
-                          <div className="input-button">
-                            <button type='submit' className={styles.button}>
-                              Generate
-                            </button>
-                          </div>
+                          <LoadingButton
+                            size="large"
+                            type="submit"
+                            variant="contained"
+                            loading={loading}
+                            loadingPosition="center"
+                            sx={
+                              {
+                                backgroundColor: '#64B5F6 !important',
+                                color: '#ffffff',
+                                className: 'buttonMUI',
+                                marginTop: '6px',
+                              }
+                            }
+                          >
+                            Generate
+                          </LoadingButton>
                         </Grid>
                        </Grid> 
                 </Box>
