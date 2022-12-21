@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Button from '@mui/material/Button'
+import styles from '../styles/Form.module.css';
 import TextField from '@mui/material/TextField'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
@@ -9,6 +9,7 @@ import { useState } from 'react'
 import { ChangeEvent } from 'react'
 import Rules from './components/Rules'
 import DallEImages from './components/DallEImages'
+import Subject from './components/Subject';
 
 
 
@@ -18,7 +19,6 @@ export default function Create() {
     const [result, setResult] = useState();
     async function onSubmit(e: ChangeEvent<HTMLFormElement>){
       e.preventDefault();
-      console.log('inside onsubmit')
       const response = await fetch('/api/dalle', {
         method: 'POST',
         headers: {
@@ -27,11 +27,25 @@ export default function Create() {
         body: JSON.stringify({ text: textInput })
       });
       const data = await response.json();
-      // console.log(data);
       setResult(data.image_url);
-      console.log(textInput)
     }
-
+    const [subject, setSubject] = useState();
+    async function getSubject(): Promise<void>{
+      const response = await fetch('/api/contest', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const data = await response.json();
+      setSubject(data[0].contestname);
+      console.log(subject)
+    }
+    getSubject();
+    const props = {
+      subject: subject,
+      urls: result
+    }
     return (
         <div>
           <Container component="main" maxWidth= "lg">
@@ -44,9 +58,10 @@ export default function Create() {
                 }}
                 />
                     <Typography component="h1" variant="h5">
-                        Create images
+                        Create images, enter the contest!
                     </Typography>
                     <Rules />
+                    <Subject subject={subject} />
                 <Box component= "form" noValidate sx={{mt: 3}} onSubmit={onSubmit}>
                     <Grid container spacing={2}>
                         <Grid item xs={10} sm={10}>
@@ -61,18 +76,16 @@ export default function Create() {
                             /> 
                         </Grid>
                         <Grid item xs={2} sm={2}>
-                          <Button 
-                            type="submit"
-                            variant='contained'
-                            sx={{mt: 1, nb: 2}}
-                            >
+                          <div className="input-button">
+                            <button type='submit' className={styles.button}>
                               Generate
-                          </Button>
+                            </button>
+                          </div>
                         </Grid>
                        </Grid> 
                 </Box>
             </Container>
-            <DallEImages urls={result}/>
+            <DallEImages props={props}/>
         </div>
     )
 }
