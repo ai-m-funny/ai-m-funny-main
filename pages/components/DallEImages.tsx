@@ -1,14 +1,14 @@
 import * as React from 'react'
-import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import Container from '@mui/material/Container'
 import Item from '@mui/material/Grid'
 import Image from 'next/image'
+import styles from 'styles/Form.module.css';
 import { useState } from 'react'
+import Link from 'next/link'
 
 export default function DallEImages({props}) {
-  console.log(props.urls)
-  console.log(props.subject)
+  const [submitted, setSubmitted] = useState();
   const urls = props.urls;
   const contestName = props.subject;
   async function handleClick(e: React.MouseEvent<HTMLImageElement, MouseEvent>, url: string, contestName: string) {
@@ -27,8 +27,15 @@ export default function DallEImages({props}) {
       })
     });
     const data = await response.json();
+    setSubmitted(true);
   }
   if (urls === undefined) return;
+  if (submitted === true) return (
+    <div>
+      <p>Your image has been submitted!</p>
+      <Link href='/feed'>Click here to back to the contest feed</Link>
+    </div>
+  )
     return (
         <div>        
           <Container component="main" maxWidth= "lg"
