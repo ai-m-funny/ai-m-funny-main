@@ -10,7 +10,7 @@ import { ChangeEvent } from 'react'
 
 export default function DallEImages({urls}) {
   console.log('inside images: ', urls);
-  if (urls === undefined) return
+  if (urls === undefined) return <></>
     return (
         <div>
           <Container component="main" maxWidth= "lg"
